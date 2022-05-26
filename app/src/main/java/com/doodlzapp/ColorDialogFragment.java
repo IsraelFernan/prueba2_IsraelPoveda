@@ -130,6 +130,7 @@ public class ColorDialogFragment extends DialogFragment {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {} // required
             };
+
 }
 
 

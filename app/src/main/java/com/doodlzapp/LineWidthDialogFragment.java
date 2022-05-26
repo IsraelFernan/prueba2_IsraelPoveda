@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,12 @@ import androidx.fragment.app.DialogFragment;
 // class for the Select Line Width dialog
 public class LineWidthDialogFragment extends DialogFragment {
     private ImageView widthImageView;
+    private SeekBar alphaSeekBar;
+    private SeekBar redSeekBar;
+    private SeekBar greenSeekBar;
+    private SeekBar blueSeekBar;
+    private View colorView;
+    protected int color;
 
     // create an AlertDialog and return it
     @Override
@@ -104,6 +111,26 @@ public class LineWidthDialogFragment extends DialogFragment {
                     bitmap.eraseColor(eraseColor);
                     canvas.drawLine(30, 50, 370, 50, p);
                     widthImageView.setImageBitmap(bitmap);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {} // required
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {} // required
+            };
+    private final SeekBar.OnSeekBarChangeListener colorChangedListener =
+            new SeekBar.OnSeekBarChangeListener() {
+                // display the updated color
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress,
+                                              boolean fromUser) {
+
+                    if (fromUser) // user, not program, changed SeekBar progress
+                        color = Color.argb(alphaSeekBar.getProgress(),
+                                redSeekBar.getProgress(), greenSeekBar.getProgress(),
+                                blueSeekBar.getProgress());
+                    colorView.setBackgroundColor(color);
                 }
 
                 @Override
